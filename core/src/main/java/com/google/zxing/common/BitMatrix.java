@@ -77,23 +77,20 @@ public final class BitMatrix implements Cloneable {
       if (stringRepresentation.charAt(pos) == '\n' ||
           stringRepresentation.charAt(pos) == '\r') {
         if (bitsPos > rowStartPos) {
-          if(rowLength == -1) {
+          if (rowLength == -1) {
             rowLength = bitsPos - rowStartPos;
-          }
-          else if (bitsPos - rowStartPos != rowLength) {
+          } else if (bitsPos - rowStartPos != rowLength) {
             throw new IllegalArgumentException("row lengths do not match");
           }
           rowStartPos = bitsPos;
           nRows++;
         }
         pos++;
-      }
-      else if (stringRepresentation.substring(pos, pos + setString.length()).equals(setString)) {
+      }  else if (stringRepresentation.substring(pos, pos + setString.length()).equals(setString)) {
         pos += setString.length();
         bits[bitsPos] = true;
         bitsPos++;
-      }
-      else if (stringRepresentation.substring(pos, pos + unsetString.length()).equals(unsetString)) {
+      } else if (stringRepresentation.substring(pos, pos + unsetString.length()).equals(unsetString)) {
         pos += unsetString.length();
         bits[bitsPos] = false;
         bitsPos++;
@@ -408,15 +405,31 @@ public final class BitMatrix implements Cloneable {
     return hash;
   }
 
+  /**
+   * @return string representation using "X" for set and " " for unset bits
+   */
   @Override
   public String toString() {
     return toString("X ", "  ");
   }
 
+  /**
+   * @param setString representation of a set bit
+   * @param unsetString representation of an unset bit
+   * @return string representation of entire matrix utilizing given strings
+   */
   public String toString(String setString, String unsetString) {
-    return toString(setString, unsetString, System.lineSeparator());
+    return toString(setString, unsetString, "\n");
   }
-  
+
+  /**
+   * @param setString representation of a set bit
+   * @param unsetString representation of an unset bit
+   * @param lineSeparator newline character in string representation
+   * @return string representation of entire matrix utilizing given strings and line separator
+   * @deprecated call {@link #toString(String,String)} only, which uses \n line separator always
+   */
+  @Deprecated
   public String toString(String setString, String unsetString, String lineSeparator) {
     StringBuilder result = new StringBuilder(height * (width + 1));
     for (int y = 0; y < height; y++) {

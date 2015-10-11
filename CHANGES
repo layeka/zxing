@@ -345,3 +345,13 @@
 
   - Retire actionscript port
   - Small bug fixes
+
+3.2.0 (15 Feb 2015)
+
+  - Several bug fixes, especially for Data Matrix and PDF417 parsing
+  - Retired jruby binding
+  - Barcode Scanner can now disable history
+
+3.2.1 (20 Aug 2015)
+
+  - Small bug fixes
